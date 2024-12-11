@@ -1,0 +1,75 @@
+<div class="container mt-5">
+    <h2 class="mb-4">Lista de Recargas</h2>
+
+    <div *ngIf="!recharges || recharges.length === 0">
+        <p>No hay reservas registradas en la aplicacion.</p>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Precio</th>
+                <th>kW</th>
+                <th>Costo</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <style>
+                 .badge-text {
+              color: black; 
+            }
+            .popup {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            }
+
+            .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            }
+        </style>
+        <tbody>
+            <tr *ngFor="let recharge of recharges; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ recharge.price | currency:'EUR':'symbol'}}</td>
+                <td>{{ (recharge.kw ?? 0) | number:'1.2-2' }}</td>
+                <td>{{ (recharge.kw ?? 0) * (recharge.price ?? 0) | currency:'EUR':'symbol' }}</td>
+                <td>
+                    <button class="btn btn-success" (click)="openConfirmationPopup(recharge.id!)" *ngIf="recharge.status === 'NOT_STARTED'
+                    || recharge.status === 'COMPLETED'"
+                     [disabled]="recharge.status == 'COMPLETED'">
+                        <i class="fa fa-play" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-danger" (click)="stopRecharge(recharge.id!)" *ngIf="recharge.status === 'CHARGING'">
+                        <i class="fa fa-stop" aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="total-container">
+        <h3>Total: {{ totalCost | currency:'EUR':'symbol' }}</h3>
+    </div>
+</div>
+
+
+<!-- Pop-up de Confirmación -->
+<div class="popup" *ngIf="isConfirmationPopupOpen">
+    <div class="popup-content">
+      <h5>Confirmación</h5>
+      <p>¿Seguro que comenzar la recarga?</p>
+      <button class="btn btn-secondary" (click)="cancelRecharge()">No</button>
+      <button class="btn btn-danger" (click)="startRecharge()">Sí</button>
+    </div>
+  </div>

@@ -1,0 +1,19 @@
+.dropdown-container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.5s ease-out;
+  }
+  
+  .dropdown-container.show {
+    transform: scaleY(1);
+  }
+  
+  .icon-size {
+    /* Ajusta el tamaño según el tamaño original de tus íconos */
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }

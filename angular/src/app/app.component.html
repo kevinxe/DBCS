@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Cliente Angular</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      
+      <!-- Menú desplegable para Usuarios -->
+      <li class="nav-item dropdown" (click)="toggleDropdown1()">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
+        <div class="dropdown-menu" aria-labelledby="userDropdown" [@dropdownAnimation]="isOpen1 ? 'open' : 'closed'">
+          <a class="dropdown-item" routerLink="/users">Listar los Usuarios</a>
+          <a class="dropdown-item" routerLink="/users/create">Crear Usuario</a>
+        </div>
+      </li>
+      
+      <!-- Menú desplegable para Punto de recarga -->
+      <li class="nav-item dropdown" (click)="toggleDropdown2()">
+        <a class="nav-link dropdown-toggle" href="#" id="chargingDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Punto de recarga</a>
+        <div class="dropdown-menu" aria-labelledby="chargingDropdown" [@dropdownAnimation]="isOpen2 ? 'open' : 'closed'">
+          <a class="dropdown-item" routerLink="/chargingpoint">Ver todos los ChargingPoints</a>
+          <a class="dropdown-item" routerLink="/addchargingpoint">Agregar ChargingPoint</a>
+        </div>
+      </li>
+      <!-- Menú desplegable para Vehículos -->
+    <li class="nav-item dropdown" (click)="toggleDropdown3()">
+      <a class="nav-link dropdown-toggle" href="#" id="vehiclesDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Vehículos</a>
+      <div class="dropdown-menu" aria-labelledby="vehiclesDropdown" [@dropdownAnimation]="isOpen3 ? 'open' : 'closed'">
+        <a class="dropdown-item" routerLink="/vehicles">Ver todos los Vehículos</a>
+        <!-- Agrega aquí más opciones relacionadas con Vehículos si es necesario -->
+      </div>
+    </li>
+
+
+    </ul>
+  </div>
+  
+  <!-- Botones de Iniciar Sesión y Cerrar Sesión -->
+  <div class="ml-3">
+    <a *ngIf="!isLoggedIn()" class="btn btn-outline-primary" routerLink="/login">Iniciar Sesión</a>
+    <button *ngIf="isLoggedIn()" class="btn btn-outline-danger" (click)="logout()">Cerrar Sesión</button>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <router-outlet></router-outlet>
+</div>

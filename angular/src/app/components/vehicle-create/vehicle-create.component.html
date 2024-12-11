@@ -1,0 +1,56 @@
+<div class="container mt-5">
+  <h2>Añadir Vehículo</h2>
+  <form [formGroup]="vehicleForm" (ngSubmit)="addVehicle()">
+    <div class="mb-3">
+      <label for="carRegistration" class="form-label">Matrícula</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="carRegistration" 
+        formControlName="carRegistration" 
+        required
+        [ngClass]="{'is-valid': vehicleForm.controls['carRegistration'].valid && vehicleForm.controls['carRegistration'].touched, 'is-invalid': vehicleForm.controls['carRegistration'].invalid && vehicleForm.controls['carRegistration'].touched}">
+      <div *ngIf="vehicleForm.controls['carRegistration'].invalid && vehicleForm.controls['carRegistration'].touched" class="text-danger">Matrícula requerida</div>
+    </div>
+    <div class="mb-3">
+      <label for="brand" class="form-label">Marca</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="brand" 
+        formControlName="brand" 
+        required
+        [ngClass]="{'is-valid': vehicleForm.controls['brand'].valid && vehicleForm.controls['brand'].touched, 'is-invalid': vehicleForm.controls['brand'].invalid && vehicleForm.controls['brand'].touched}">
+      <div *ngIf="vehicleForm.controls['brand'].invalid && vehicleForm.controls['brand'].touched" class="text-danger">Marca requerida</div>
+    </div>
+    <div class="mb-3">
+      <label for="model" class="form-label">Modelo</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="model" 
+        formControlName="model" 
+        required
+        [ngClass]="{'is-valid': vehicleForm.controls['model'].valid && vehicleForm.controls['model'].touched, 'is-invalid': vehicleForm.controls['model'].invalid && vehicleForm.controls['model'].touched}">
+      <div *ngIf="vehicleForm.controls['model'].invalid && vehicleForm.controls['model'].touched" class="text-danger">Modelo requerido</div>
+    </div>
+    <div class="mb-3">
+      <label for="capacity" class="form-label">Capacidad</label>
+      <input 
+        type="number" 
+        class="form-control" 
+        id="capacity" 
+        formControlName="capacity" 
+        required
+        [ngClass]="{'is-valid': vehicleForm.controls['capacity'].valid && vehicleForm.controls['capacity'].touched, 'is-invalid': vehicleForm.controls['capacity'].invalid && vehicleForm.controls['capacity'].touched}">
+      <div *ngIf="vehicleForm.controls['capacity'].invalid && vehicleForm.controls['capacity'].touched" class="text-danger">La capacidad debe ser superior a 0</div>
+    </div>
+    <div class="mb-3">
+      <label for="plugType" class="form-label">Tipo de Enchufe</label>
+      <select class="form-control" id="plugType" formControlName="plugType">
+        <option *ngFor="let type of plugTypes" [value]="type">{{type}}</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!vehicleForm.valid">Añadir Vehículo</button>
+  </form>
+</div>

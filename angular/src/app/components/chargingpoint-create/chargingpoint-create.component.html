@@ -1,0 +1,71 @@
+<div class="container mt-5">
+    <h2>Añadir nuevo punto de carga</h2>
+    <form [formGroup]="chargerPointForm" (ngSubmit)="saveChargerPoint()">
+      <div class="mb-3">
+        <label for="address" class="form-label">Dirección</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="address" 
+          formControlName="address" 
+          required
+          [ngClass]="{'is-valid': chargerPointForm.controls['address'].valid && chargerPointForm.controls['address'].touched, 'is-invalid': chargerPointForm.controls['address'].invalid && chargerPointForm.controls['address'].touched}">
+        <div *ngIf="chargerPointForm.controls['address'].invalid && chargerPointForm.controls['address'].touched" class="text-danger">Dirección requerida</div>
+      </div>
+      <div class="mb-3">
+        <label for="latitude" class="form-label">Latitud</label>
+        <input 
+          type="number" 
+          class="form-control" 
+          id="latitude" 
+          formControlName="latitude" 
+          required
+          [ngClass]="{'is-valid': chargerPointForm.controls['latitude'].valid && chargerPointForm.controls['latitude'].touched, 'is-invalid': chargerPointForm.controls['latitude'].invalid && chargerPointForm.controls['latitude'].touched}">
+          <div *ngIf="chargerPointForm.controls['latitude'].invalid && chargerPointForm.controls['latitude'].touched" class="text-danger">La latitud debe ser superior a 0</div>
+      </div>
+      <div class="mb-3">
+        <label for="longitude" class="form-label">Longitud</label>
+        <input 
+          type="number" 
+          class="form-control" 
+          id="longitude" 
+          formControlName="longitude" 
+          required
+          [ngClass]="{'is-valid': chargerPointForm.controls['longitude'].valid && chargerPointForm.controls['longitude'].touched, 'is-invalid': chargerPointForm.controls['longitude'].invalid && chargerPointForm.controls['longitude'].touched}">
+        <div *ngIf="chargerPointForm.controls['longitude'].invalid && chargerPointForm.controls['longitude'].touched" class="text-danger">La longitud debe ser superior a 0</div>
+      </div>
+      <div class="mb-3">
+        <button type="button" class="btn btn-warning" (click)="openMap()"> <i class="fa fa-map-marker" aria-hidden="true"></i> Seleccionar en Mapa</button>
+      </div>
+
+      <div class="mb-3">
+        <label for="plugType" class="form-label">Tipo de Enchufe</label>
+        <select class="form-control" id="plugType" formControlName="plugType">
+          <option *ngFor="let type of plugTypeValues" [value]="type">{{type}}</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="power" class="form-label">Potencia</label>
+        <select class="form-control" id="power" formControlName="power">
+          <option *ngFor="let power of powerValues" [value]="power">{{power}}</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="status" class="form-label">Estado</label>
+        <select class="form-control" id="status" formControlName="status">
+          <option *ngFor="let status of statusValues" [value]="status">{{status}}</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!chargerPointForm.valid">Guardar</button>
+    </form>
+  </div>
+
+
+  <div class="map-popup" *ngIf="isMapPopupOpen">
+    <div class="map-popup-content">
+      <h5>Selecciona Ubicación</h5>
+      <div id="mapId" style="height: 400px;"></div>
+      <button class="btn btn-secondary" (click)="closeMapPopup()">Cerrar</button>
+    </div>
+  </div>
+  

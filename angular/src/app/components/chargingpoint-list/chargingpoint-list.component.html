@@ -1,0 +1,69 @@
+<div class="container mt-4">
+    <h2>Listado de puntos de carga</h2>
+    <table class="table table-hover table-responsive">
+        <thead class="thead-dark">
+            <tr>
+                <th>Dirección</th>
+                <th>Latitud</th>
+                <th>Longitud</th>
+                <th>Tipo de Enchufe</th>
+                <th>Potencia</th>
+                <th>Estado</th>
+                <th>Editar</th>
+                <th>Borrar</th>
+                <th>Ubicacion</th>
+            </tr>
+        </thead>
+        <style>
+                    .table-button {
+                margin-top: 5px; /* Ajusta este valor según sea necesario */
+                vertical-align: top; /* Alineación vertical */
+            }
+        </style>
+        <tbody>
+            <tr *ngFor="let chargerPoint of chargerPoints">
+                <td>{{ chargerPoint.address }}</td>
+                <td>{{ chargerPoint.latitude }}</td>
+                <td>{{ chargerPoint.longitude }}</td>
+                <td>{{ chargerPoint.plugType }}</td>
+                <td>{{ chargerPoint.power }}</td>
+                <td>{{ chargerPoint.status }}</td>
+                <td class="align-middle text-left">
+                    <button class="btn btn-warning" title="Editar punto"(click)="navigateToEditChargerPoint(chargerPoint.id)">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                </td>
+                <td class="text-center">
+                    <button class="btn btn-danger table-button" (click)="openConfirmationPopup(chargerPoint.id!)" title="Borrar Punto">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </td>
+                <td class="text-center">
+                    <button class="btn btn-warning table-button" (click)="openMapPopup(chargerPoint)" title="Mostrar en Mapa">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    </button>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="map-popup" *ngIf="isMapPopupOpen">
+    <div class="map-popup-content">
+      <h5>Localizacion del punto</h5>
+      <div id="mapId" style="height: 400px;"></div>
+      <button class="btn btn-secondary" (click)="closeMapPopup()">Cerrar</button>
+    </div>
+  </div>
+
+
+   <!-- Pop-up de Confirmación -->
+   <div class="popup" *ngIf="isConfirmationPopupOpen">
+    <div class="popup-content">
+        <h5>Confirmación</h5>
+        <p>¿Seguro que quieres eliminar el punto?</p>
+        <button class="btn btn-secondary" (click)="closeConfirmationPopup()">No</button>
+        <button class="btn btn-danger" (click)="confirmDeleteChargerPoint()">Sí</button>
+    </div>
+    </div>

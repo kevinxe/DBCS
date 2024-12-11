@@ -1,0 +1,124 @@
+<div class="container mt-5">
+    <h2 class="mb-4">Lista de Usuarios</h2>
+    <button (click)="toggleFilter()" class="btn btn-primary mb-4" title="Filtrar usuarios">
+      {{ filterEnabled === null ? 'Mostrar solo habilitados' : (filterEnabled ? 'Mostrar solo deshabilitados' : 'Mostrar todos') }}
+    </button>
+    <table class="table table-hover table-responsive">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido1</th>
+                <th scope="col">Apellido2</th>
+                <th scope="col">Email</th>
+                <!--<th scope="col">Contraseña</th>-->
+                <th scope="col">Tarjeta de Pago</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Fecha de Creación</th>
+                <th scope="col">Fecha de Actualización</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar usuario</th>
+                <th scope="col">Gestion Vehiculos</th>
+                <th scope="col">Gestion Recargas</th>
+            </tr>
+        </thead>
+        <style>
+            .badge-text {
+              color: black; 
+            }
+            .popup {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            }
+
+            .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            }
+            .dropdown-menu-vertical {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+          </style>
+        <tbody>
+          <tr *ngFor="let user of filteredUsers">
+              <td>{{ user.name }}</td>
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td>{{ user.email }}</td>
+              <!--<td>{{ user.password ? hideSensitiveInfo(user.password) : '' }}</td>-->
+              <td (dblclick)="togglePaymentCardVisibility(user.id)">
+                {{ showFullPaymentCard[user.id] ? user.paymentCard : (user.paymentCard ? hideSensitiveInfo(user.paymentCard) : '') }}
+              </td>
+              <td>
+                  <span class="badge badge-{{ user.enabled ? 'success' : 'danger' }} badge-text">
+                      {{ user.enabled ? 'Habilitado' : 'Deshabilitado' }}
+                  </span>
+              </td>
+              <td>{{ user.createdAt | date:'short' }}</td>
+              <td>{{ user.updatedAt | date:'short' }}</td>
+               
+              <td class="text-center">
+                  <button class="btn btn-warning mt-2" (click)="navigateToEditUser(user.id)" title="Editar Usuario">
+                      <i class="fa fa-pencil"></i>
+                  </button>
+              </td>
+              <td class="text-center">
+                <button class="btn btn-danger mt-2" (click)="openConfirmationPopup(user.id ?? 0, user.email || '')" title="Borrar Usuario">
+                      <i class="fa fa-times"></i>
+                  </button>
+              </td>
+              <!-- Columna para botones de vehiculos -->
+              <td class="text-center">
+                <button class="btn btn-success mt-2" (click)="toggleVehicleDropdown(user.id)" title="Vehículos">
+                    <i class="fa fa-car"></i>
+                </button>
+                <div [@slideDown]="isVehicleDropdownOpen[user.id]" class="dropdown-menu-vertical">
+                    <button class="btn btn-success mt-2" (click)="navigateToAddVehicle(user.id)" title="Agregar Vehículo">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                    <button class="btn btn-primary mt-2" (click)="navigateToViewVehicles(user.id)" title="Ver Vehículos">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </div>
+            </td>
+            <!-- Columna para botones de recargas -->
+            <td class="text-center">
+                <button class="btn btn-info mt-2" (click)="toggleRechargeDropdown(user.id)" title="Recargas">
+                    <i class="fa fa-bolt"></i>
+                </button>
+                <div [@slideDown]="isRechargeDropdownOpen[user.id]" class="dropdown-menu-vertical">
+                    <button class="btn btn-info mt-2" (click)="navigateToAddRecharge(user.id)" title="Agregar Recarga">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                    <button class="btn btn-info mt-2" (click)="navigateToListRecharges(user.id)" title="Ver Recargas">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </div>
+            </td>
+
+           
+          </tr>
+      </tbody>
+      
+    </table>
+  </div>
+
+<!-- Pop-up de Confirmación -->
+<div class="popup" *ngIf="isConfirmationPopupOpen">
+    <div class="popup-content">
+      <h5>Confirmación</h5>
+      <p>¿Seguro que quieres eliminar el usuario?</p>
+      <button class="btn btn-secondary" (click)="closeConfirmationPopup()">No</button>
+      <button class="btn btn-danger" (click)="confirmDeleteUser()">Sí</button>
+    </div>
+  </div>

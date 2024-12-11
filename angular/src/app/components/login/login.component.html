@@ -1,0 +1,31 @@
+<!-- login.component.html -->
+<div class="container mt-5">
+    <h2>Iniciar Sesión</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" class="form-control" id="email" formControlName="email"
+          [ngClass]="{'is-valid': loginForm.get('email')?.valid && loginForm.get('email')?.touched, 'is-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}"
+          required>
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">Debe ingresar un correo válido</div>
+        <div *ngIf="loginForm.get('email')?.valid && loginForm.get('email')?.touched" class="text-success">&#10003;</div>
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">&#10007;</div>
+      </div>
+  
+      <div class="mb-3 position-relative">
+        <label for="password" class="form-label">Contraseña</label>
+        <div class="input-group">
+          <span class="input-group-text" (click)="toggleShowPassword()">
+            <i class="fa fa-eye" aria-hidden="true" [class.fa-eye-slash]="showPassword"></i>
+          </span>
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password" formControlName="password" 
+           [ngClass]="{'is-valid': loginForm.controls['password'].valid && loginForm.controls['password'].touched, 'is-invalid': loginForm.controls['password'].invalid && loginForm.controls['password'].touched}" 
+            required>
+        </div>
+        <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched" class="text-danger">Campo requerido</div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Iniciar Sesión</button>
+    </form>
+</div>
+

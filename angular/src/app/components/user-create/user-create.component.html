@@ -1,0 +1,66 @@
+<div class="container mt-5">
+  <h2>Crear Nuevo Usuario</h2>
+  <form [formGroup]="userForm" (ngSubmit)="createUser()">
+
+    <div class="mb-3">
+      <label for="name" class="form-label">Nombre de Usuario</label>
+      <input type="text" class="form-control" id="name" formControlName="name" 
+      [ngClass]="{'is-valid': userForm.controls['name'].valid && userForm.controls['name'].touched, 'is-invalid': userForm.controls['name'].invalid && userForm.controls['name'].touched}" 
+      required>
+      <div *ngIf="userForm.controls['name'].invalid && userForm.controls['name'].touched" class="text-danger">Campo requerido</div>
+      
+    </div>
+
+    <div class="mb-3">
+      <label for="firstName" class="form-label">Primer Apellido</label>
+      <input type="text" class="form-control" id="firstName" formControlName="firstName" 
+      [ngClass]="{'is-valid': userForm.controls['firstName'].valid && userForm.controls['firstName'].touched, 'is-invalid': userForm.controls['firstName'].invalid && userForm.controls['firstName'].touched}" 
+      required>
+      <div *ngIf="userForm.controls['firstName'].invalid && userForm.controls['firstName'].touched" class="text-danger">Campo requerido</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="lastName" class="form-label">Segundo Apellido</label>
+      <input type="text" class="form-control" id="lastName" formControlName="lastName" 
+      [ngClass]="{'is-valid': userForm.controls['lastName'].valid && userForm.controls['lastName'].touched, 'is-invalid': userForm.controls['lastName'].invalid && userForm.controls['lastName'].touched}" 
+      required>
+      <div *ngIf="userForm.controls['lastName'].invalid && userForm.controls['lastName'].touched" class="text-danger">Campo requerido</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input type="text" class="form-control" id="email" formControlName="email" 
+      [ngClass]="{'is-valid': userForm.controls['email'].valid && userForm.controls['email'].touched, 'is-invalid': userForm.controls['email'].invalid && userForm.controls['email'].touched}" 
+      required>
+      <div *ngIf="userForm.controls['email'].invalid && userForm.controls['email'].touched" class="text-danger">Debe ingresar un correo válido</div>
+    </div>
+
+    <div class="mb-3 position-relative">
+      <label for="password" class="form-label">Contraseña</label>
+      <div class="input-group">
+        <span class="input-group-text" (click)="toggleShowPassword()">
+          <i class="fa fa-eye" aria-hidden="true" [class.fa-eye-slash]="showPassword"></i>
+        </span>
+        <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password" formControlName="password" 
+         [ngClass]="{'is-valid': userForm.controls['password'].valid && userForm.controls['password'].touched, 'is-invalid': userForm.controls['password'].invalid && userForm.controls['password'].touched}" 
+          required>
+      </div>
+      <div *ngIf="userForm.controls['password'].invalid && userForm.controls['password'].touched" class="text-danger">Campo requerido</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="paymentCard" class="form-label">Tarjeta de Pago</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="paymentCard" 
+        formControlName="paymentCard"
+        appCreditCardMask
+        [ngClass]="{'is-valid': userForm.controls['paymentCard'].valid && userForm.controls['paymentCard'].touched, 'is-invalid': userForm.controls['paymentCard'].invalid && userForm.controls['paymentCard'].touched}">
+      <div *ngIf="userForm.controls['paymentCard'].errors?.['invalidCreditCardFormat'] && userForm.controls['paymentCard'].touched" class="text-danger">
+        La tarjeta no sigue el formato valido.
+      </div>
+    </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Guardar cambios</button>
+  </form>
+</div>

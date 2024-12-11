@@ -1,0 +1,25 @@
+<div class="container mt-4">
+    <h2>Listado de puntos de carga compatibles</h2>
+    <table class="table table-hover table-responsive">
+        <thead class="thead-dark">
+            <tr>
+                <th>Dirección</th>
+                <th>Latitud</th>
+                <th>Longitud</th>
+                <th>Potencia</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let chargerPoint of chargerPoints">
+                <td>{{ chargerPoint.address }}</td>
+                <td>{{ chargerPoint.latitude }}</td>
+                <td>{{ chargerPoint.longitude }}</td>
+                <td>{{ chargerPoint.power }}</td>
+                <td>{{ chargerPoint.status }}</td>
+                <td class="align-middle text-left">
+            </tr>
+        </tbody>
+    </table>
+</div>
+

@@ -1,0 +1,13 @@
+<div class="container mt-5">
+    <h2>Editar Punto de Carga</h2>
+    <form [formGroup]="chargerPointForm" (ngSubmit)="saveChargerPoint()">
+        <div class="mb-3">
+            <label for="status" class="form-label">Estado</label>
+            <select class="form-select" id="status" formControlName="status">
+                <option value="" disabled selected>Seleccionar estado</option>
+                <option *ngFor="let status of statusValues" [value]="status">{{status}}</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!chargerPointForm.valid">Guardar</button>
+    </form>
+</div>

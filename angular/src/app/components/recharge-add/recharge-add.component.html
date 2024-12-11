@@ -1,0 +1,35 @@
+<div class="container mt-5">
+    <h2 class="mb-4">Agregar Recarga</h2>
+    
+    <div *ngIf="!selectedVehicle">
+        <h3>Selecciona un Vehículo:</h3>
+        <ul class="list-group mb-4">
+            <li class="list-group-item" *ngFor="let vehicle of vehicles" (click)="selectVehicle(vehicle)">
+                {{ vehicle.brand }} {{ vehicle.model }} - {{ vehicle.carRegistration }}
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="selectedVehicle && !selectedChargerPoint">
+        <h3>Vehículo seleccionado: {{ selectedVehicle.brand }} {{ selectedVehicle.model }}</h3>
+        <h3>Selecciona un Punto de Carga:</h3>
+        <ul class="list-group mb-4">
+            <li class="list-group-item" *ngFor="let chargerPoint of chargerPoints" (click)="selectChargerPoint(chargerPoint)">
+                {{ chargerPoint.address }} - {{ chargerPoint.power }} ({{ chargerPoint.plugType }})
+            </li>
+        </ul>
+    </div>
+
+    <!-- Pop-up de Confirmación -->
+    <div class="popup" *ngIf="selectedChargerPoint &&show">
+        <div class="popup-content">
+            <h5>Confirmación</h5>
+            <p>¿Desea confirmar la recarga para el vehículo {{ selectedVehicle!.brand }} {{ selectedVehicle!.model! }} en el punto de carga {{ selectedChargerPoint!.address }}?</p>
+            <button class="btn btn-secondary" (click)="resetSelection()">Cancelar</button>
+            <button class="btn btn-success" (click)="confirmRecharge()">Confirmar Recarga</button>
+        </div>
+    </div>
+</div>
+
+
+
+

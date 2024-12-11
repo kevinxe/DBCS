@@ -1,0 +1,47 @@
+<div class="container mt-4">
+    <h2>Editar Usuario</h2>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input 
+                type="email" 
+                class="form-control" 
+                id="email" 
+                formControlName="email" 
+                [ngClass]="{'is-valid': userForm.controls['email'].valid && userForm.controls['email'].touched, 'is-invalid': userForm.controls['email'].invalid && userForm.controls['email'].touched}">
+            <div *ngIf="userForm.controls['email'].invalid && userForm.controls['email'].touched" class="text-danger">Email inválido</div>
+        </div>
+        <div class="mb-3 position-relative">
+          <label for="password" class="form-label">Contraseña</label>
+          <div class="input-group">
+            <span class="input-group-text" (click)="toggleShowPassword()">
+              <i class="fa fa-eye" aria-hidden="true" [class.fa-eye-slash]="showPassword"></i>
+            </span>
+            <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password" formControlName="password" 
+             [ngClass]="{'is-valid': userForm.controls['password'].valid && userForm.controls['password'].touched, 'is-invalid': userForm.controls['password'].invalid && userForm.controls['password'].touched}" 
+              required>
+          </div>
+          <div *ngIf="userForm.controls['password'].invalid && userForm.controls['password'].touched" class="text-danger">Campo requerido</div>
+        </div>
+        <div class="mb-3">
+            <label for="paymentCard" class="form-label">Tarjeta de Pago</label>
+            <input
+              type="text"
+              class="form-control"
+              id="paymentCard"
+              formControlName="paymentCard"
+              [ngClass]="
+                {
+                  'is-valid': userForm.controls['paymentCard'].valid && userForm.controls['paymentCard'].touched,
+                  'is-invalid': userForm.controls['paymentCard'].invalid && userForm.controls['paymentCard'].touched
+                }
+              "
+            >
+            <div *ngIf="userForm.controls['paymentCard'].invalid && userForm.controls['paymentCard'].touched" class="text-danger">
+                La tarjeta no sigue el formato valido.
+            </div>
+          </div>
+        
+        <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Guardar cambios</button>
+    </form>
+</div>

@@ -1,0 +1,30 @@
+<div class="container mt-4">
+    <h1>Vehículos del usuario</h1>
+
+    <div *ngIf="!vehicles || vehicles.length === 0">
+        <p>No hay vehículos registrados para este usuario.</p>
+    </div>
+
+    <table *ngIf="vehicles && vehicles.length > 0" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Matrícula</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Capacidad</th>
+                <th>Tipo de Enchufe</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let vehicle of vehicles">
+                <td>{{ vehicle.carRegistration }}</td>
+                <td>{{ vehicle.brand }}</td>
+                <td>{{ vehicle.model }}</td>
+                <td>{{ vehicle.capacity }}</td>
+                <td>{{ vehicle.plugType }}</td>
+               
+            </tr>
+        </tbody>
+    </table>
+</div>

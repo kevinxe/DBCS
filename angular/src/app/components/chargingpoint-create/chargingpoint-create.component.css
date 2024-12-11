@@ -1,0 +1,29 @@
+.map-popup {
+    position: fixed; /* Posicionamiento fijo en toda la pantalla */
+    top: 50%; /* Centrar verticalmente */
+    left: 50%; /* Centrar horizontalmente */
+    transform: translate(-50%, -50%); /* Ajuste para centrar exactamente */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    background-color: white; /* Color de fondo del pop-up */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidad */
+    width: 80%; /* Ancho del pop-up */
+    max-width: 800px; /* Máximo ancho permitido */
+  }
+  
+  .map-popup-content {
+    padding: 20px; /* Espaciado interno */
+  }
+  
+  #mapId {
+    width: 100%; /* El mapa ocupa todo el ancho del contenedor */
+    height: 400px; /* Altura del mapa */
+    margin-bottom: 20px; /* Margen inferior para separarlo del botón */
+  }
+  
+  /* Estilos adicionales para el botón de cerrar, si es necesario */
+  .map-popup .btn-secondary {
+    display: block; /* Hacer el botón de bloque para ocupar su propia línea */
+    width: 100%; /* Hacer que el botón se expanda a todo el ancho */
+    margin-top: 10px; /* Espacio encima del botón */
+  }
